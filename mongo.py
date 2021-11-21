@@ -57,8 +57,8 @@ if __name__ == "__main__":
         easytime = datetime.fromtimestamp(t)
         ezytime = int(easytime.timestamp())
 
-        minus2 = t - 345600  # 4-days
-        easytime2 = datetime.fromtimestamp(minus2)
+        minus = t - 345600  # 4-days
+        easytime2 = datetime.fromtimestamp(minus)
         ezytime2 = int(easytime2.timestamp())
 
         deldocs = collection.count_documents({"EpochLastReport": {"$lt": ezytime2}})
@@ -105,13 +105,15 @@ if __name__ == "__main__":
         nextrunsec = (nextrun * 60) * 60
 
         ennext = datetime.now() + timedelta(hours=nextrun)
-        nextrun = ennext.strftime("%m-%d-%Y %H:%M:%S")
-        console.log(f"--- Next run: [bold cyan]{nextrun}[/bold cyan] ---")
+        nextrunstp = ennext.strftime("%m-%d-%Y %H:%M:%S")
+        console.log(f"--- Next run: [bold cyan]{nextrunstp}[/bold cyan] ---")
 
         first = False
 
-        for t in range(1):
-            for n in track(
-                range(nextrunsec), description="Count down", refresh_per_second=1
-            ):
-                sleep(1)
+        while ennext > datetime.now():
+            sleep(300)
+            countdwn = ennext - datetime.now()
+            console.log(
+                f"--- Next run in t-minus: [bold cyan]{countdwn}[/bold cyan] ---"
+            )
+            sleep(1500)
