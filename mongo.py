@@ -115,13 +115,3 @@ if __name__ == "__main__":
                 range(nextrunsec), description="Count down", refresh_per_second=1
             ):
                 sleep(1)
-
-"""
-    tasks = [f"task {n}" for n in range(8640)]
-
-    with console.status("[bold green]Waiting...") as status:
-        while tasks:
-            task = tasks.pop(0)
-            sleep(5)
-            console.log(f"{task} complete")
-"""
