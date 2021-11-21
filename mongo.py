@@ -114,6 +114,6 @@ if __name__ == "__main__":
             sleep(300)
             countdwn = ennext - datetime.now()
             console.log(
-                f"--- Next run in t-minus: [bold cyan]{countdwn}[/bold cyan] ---"
+                "--- Next run in t-minus: [bold cyan]%.1f[/bold cyan] --- % (countdwn)"
             )
             sleep(1500)
