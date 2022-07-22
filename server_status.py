@@ -4,10 +4,9 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read("svr_stat_config.ini")
 mongoaddr = config["MONGO"]["mongo_addr"]
 mongodb = config["MONGO"]["mongo_db"]
-mongocollect = config["MONGO"]["mongo_collect"]
 mongouser = config["MONGO"]["user_name"]
 mongopw = config["MONGO"]["password"]
 
@@ -19,14 +18,13 @@ Mongo_Client = MongoClient(
     serverSelectionTimeoutMS=MAX_MONGODB_DELAY,
 )
 
-db = Mongo_Client[mongodb]
-collection = db[mongocollect]
-dbase = db["counter"]
+db = Mongo_Client.admin
+
 
 try:
-    dbase.command("serverStatus")
+    svr_status = db.command("serverStatus")
+    print(svr_status)
 except Exception as e:
     print(e)
 else:
     print("You are connected!")
-dbase.close()
